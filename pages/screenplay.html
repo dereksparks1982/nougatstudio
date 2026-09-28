@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071018">
+  <title>Screenplay | Nougat Studio</title>
+  <link rel="stylesheet" href="workspace.css">
+</head>
+<body>
+<div class="workspace-shell">
+  <header class="workspace-header">
+    <a class="back-link" href="../index.html">← Home</a>
+    <div class="brand"><strong>Nougat</strong> <span>Studio</span></div>
+    <div class="workspace-title">Screenplay</div>
+    <div class="header-spacer"></div>
+    <span id="saveState" class="status">Saved locally</span>
+    <label class="btn file-btn">Import<input id="importInput" type="file" accept=".txt,.fountain,.json,text/plain,application/json"></label>
+    <button id="printBtn" class="btn">Print / PDF</button>
+  </header>
+
+  <main class="screenplay-grid">
+    <aside class="rail">
+      <div class="rail-title row"><span>Scenes</span><button id="newSceneBtn" class="mini" type="button">＋</button></div>
+      <div id="sceneList" class="scene-list"></div>
+    </aside>
+
+    <section class="editor-column">
+      <div class="format-bar">
+        <button data-format="scene" type="button">Scene</button>
+        <button data-format="action" type="button">Action</button>
+        <button data-format="character" type="button">Character</button>
+        <button data-format="dialogue" type="button">Dialogue</button>
+        <button data-format="parenthetical" type="button">(Parenthetical)</button>
+        <div class="meta"><span id="sceneCounter">Scene 1 of 1</span><span id="wordCount">0 words</span></div>
+      </div>
+      <div class="paper-scroll">
+        <article class="paper">
+          <div id="scriptEditor" class="script-editor" contenteditable="true" spellcheck="true"></div>
+        </article>
+      </div>
+    </section>
+
+    <aside class="rail right">
+      <div class="rail-title">Scene Inspector</div>
+      <div class="form">
+        <label>Scene title<input id="sceneTitleInput"></label>
+        <label>Location<input id="sceneLocationInput"></label>
+        <label>Characters<input id="sceneCharactersInput"></label>
+        <label>Director / continuity notes<textarea id="sceneNotesInput"></textarea></label>
+      </div>
+
+      <div class="rail-title">Word &amp; Phrase Tracker</div>
+      <div class="form">
+        <div class="tracker-form">
+          <input id="trackedWordInput" placeholder="Word or phrase">
+          <input id="trackedWordColor" type="color" value="#ffd54f" aria-label="Highlight color">
+          <button id="trackWordBtn" class="mini" type="button">Track</button>
+        </div>
+        <div id="trackedWords" class="tracker-list"></div>
+        <div class="count-box">
+          <div><strong id="trackedTotal">0</strong><span>tracked hits</span></div>
+          <div><strong id="scriptWordTotal">0</strong><span>script words</span></div>
+        </div>
+      </div>
+
+      <div class="rail-title">Export</div>
+      <div class="form">
+        <label>Format<select id="exportFormat"><option value="fountain">Fountain (.fountain)</option><option value="txt">Plain Text (.txt)</option><option value="html">HTML (.html)</option><option value="json">Nougat Project JSON (.json)</option></select></label>
+        <button id="exportBtn" class="btn primary" type="button">Export</button>
+        <p class="hint">Nougat Studio keeps the project editable locally, but does not trap the screenplay in one proprietary format. Export to standard text-based formats or use Print / PDF for a PDF copy.</p>
+      </div>
+    </aside>
+  </main>
+</div>
+<script src="screenplay.js"></script>
+</body>
+</html>
