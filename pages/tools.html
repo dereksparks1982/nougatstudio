@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071018">
+  <title>Nougat Studio — Tools</title>
+  <link rel="stylesheet" href="workspace.css">
+</head>
+<body>
+  <div class="workspace-shell">
+    <header class="workspace-header">
+      <a class="back-link" href="../index.html">← Home</a>
+      <div class="brand"><strong>NOUGAT</strong> <span>STUDIO</span></div>
+      <div class="workspace-title">Tools</div>
+      <div class="header-spacer"></div>
+      <div class="status" id="toolStatus">Ready</div>
+    </header>
+
+    <main class="tools-layout">
+      <aside class="tool-nav-panel">
+        <div class="rail-title">Media & File Tools</div>
+        <button class="tool-nav active" data-view="splitter">File Splitter</button>
+        <button class="tool-nav" data-view="assembler">File Assembler</button>
+      </aside>
+
+      <section class="tool-workspace">
+        <section id="splitterView" class="tool-view active">
+          <div class="workspace-panel-head">
+            <div>
+              <h1>File Splitter</h1>
+              <p>Split large production files into numbered parts with optional SHA-256 verification data.</p>
+            </div>
+          </div>
+
+          <div class="tool-card-grid">
+            <section class="tool-card">
+              <label class="field-stack">Source file<input id="splitFile" type="file"></label>
+              <label class="field-stack">Target part size (MiB)<input id="splitTarget" type="number" min="1" max="476" value="450"></label>
+              <div class="tool-actions">
+                <button class="btn primary" id="splitAnalyze">Analyze</button>
+                <button class="btn" id="splitHash">Build SHA-256 Manifest</button>
+                <button class="btn" id="splitManifest" disabled>Download Manifest</button>
+              </div>
+              <div class="tool-output" id="splitSummary">Choose a source file.</div>
+            </section>
+
+            <section class="tool-card">
+              <h2>Parts</h2>
+              <div id="splitParts" class="part-list"><div class="tool-empty">No file selected.</div></div>
+            </section>
+          </div>
+        </section>
+
+        <section id="assemblerView" class="tool-view">
+          <div class="workspace-panel-head">
+            <div>
+              <h1>File Assembler</h1>
+              <p>Verify and rebuild numbered parts created by Nougat Studio or compatible splitters.</p>
+            </div>
+          </div>
+
+          <div class="tool-card-grid">
+            <section class="tool-card">
+              <label class="field-stack">Part files<input id="assembleParts" type="file" multiple></label>
+              <label class="field-stack">Manifest (optional)<input id="assembleManifestFile" type="file" accept="application/json,.json"></label>
+              <label class="field-stack">Output filename<input id="assembleName" type="text" placeholder="reassembled-file.bin"></label>
+              <div class="tool-actions">
+                <button class="btn" id="assembleVerify">Verify Parts</button>
+                <button class="btn primary" id="assembleRun">Assemble / Download</button>
+              </div>
+              <div class="tool-output" id="assembleStatus">Select numbered parts.</div>
+            </section>
+
+            <section class="tool-card">
+              <h2>Selected Parts</h2>
+              <div id="assembleList" class="part-list"><div class="tool-empty">No parts selected.</div></div>
+            </section>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+  <script src="tools.js"></script>
+</body>
+</html>
