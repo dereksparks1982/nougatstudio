@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   actions: read
   pages: write
   id-token: write
@@ -32,6 +32,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          gh api -X DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/gh-pages" || true
           gh api -X PUT "repos/${GITHUB_REPOSITORY}/pages" -f build_type=workflow || true
 
   deploy:
@@ -54,7 +55,7 @@ jobs:
           repository: ${{ github.repository }}
           run-id: 36468683098
 
-      - name: Build Nougat Studio Pages site
+      - name: Build self-contained Nougat Studio Pages site
         shell: bash
         run: |
           set -euo pipefail
@@ -69,6 +70,22 @@ jobs:
           cp _seed_site/assets/nougat-studio-approved-ui.png _site/assets/nougat-studio-approved-ui.png
           test "$(stat -c %s _site/assets/nougat-studio-approved-ui.png)" = '2504844'
           echo 'c86db5dd40882b09002df0b5bd5d6962e8d0d42532252237d71561e731bb49ca  _site/assets/nougat-studio-approved-ui.png' | sha256sum -c -
+
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64
+          index = Path('_site/index.html')
+          image = Path('_site/assets/nougat-studio-approved-ui.png')
+          html = index.read_text()
+          data = base64.b64encode(image.read_bytes()).decode('ascii')
+          expected = 'src="assets/nougat-studio-approved-ui.png"'
+          replacement = 'src="data:image/png;base64,' + data + '"'
+          if expected not in html:
+              raise SystemExit('approved UI image reference not found in index.html')
+          index.write_text(html.replace(expected, replacement, 1))
+          PY
+
+          grep -q 'data:image/png;base64,' _site/index.html
           touch _site/.nojekyll
 
       - name: Configure Pages
