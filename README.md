@@ -35,6 +35,18 @@ Nougat Studio is being built around the full filmmaking workflow:
 - Project-wide media and asset management
 - Export, mastering, and delivery workflows
 
+## Current Working Tools
+
+The standalone web application currently includes working implementations of:
+
+- Screenplay workspace with scene management and common script exports
+- Character development workspace with Reaction Bible and browser voice-test recording
+- File Splitter with adjustable part size, numbered-part downloads, SHA-256 hashing, and manifest export
+- File Assembler with ordered-part reconstruction and optional manifest/SHA-256 verification
+- Aerial Production simulator with waypoint planning, saved shot paths, animated route simulation, speed control, and live simulated telemetry
+
+The File Splitter, File Assembler, and aerial simulation foundations were migrated from the existing Nougat Media Plus Studio work so the standalone Nougat Studio can become the primary home for filmmaking and production tools.
+
 ## Director-First Design
 
 The central idea behind Nougat Studio is simple: **the project should follow the film, not the software category.**
@@ -45,7 +57,9 @@ The interface uses a modular production-workspace approach so different departme
 
 ## Current Development
 
-Nougat Studio is in active prototype development. The present web application establishes the director-first workspace, screenplay tools, scene management, character development, shot planning, storyboarding, research, and production structure while the broader production and post-production toolset is being brought into the standalone application.
+Nougat Studio is in active prototype development. The present web application establishes the approved director-first home interface plus working screenplay, character, file-management, and aerial-production tools while the broader professional production and post-production toolset is being brought into the standalone application.
+
+Planned Studio expansion includes professional video/audio/photo editing, green-screen keying and compositing, animation, VFX, camera/object tracking, rotoscoping, motion capture and retargeting, project-wide asset management, high-resolution rendering, render queues, and broader media conversion/export tools.
 
 The project is designed as a web application and is deployed through GitHub Pages.
 
