@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071018">
+  <title>Nougat Studio — Aerial Production</title>
+  <link rel="stylesheet" href="workspace.css">
+</head>
+<body>
+  <div class="workspace-shell">
+    <header class="workspace-header">
+      <a class="back-link" href="../index.html">← Home</a>
+      <div class="brand"><strong>NOUGAT</strong> <span>STUDIO</span></div>
+      <div class="workspace-title">Aerial Production</div>
+      <div class="header-spacer"></div>
+      <div class="status" id="flightStatus">Simulation only</div>
+    </header>
+
+    <main class="aerial-layout">
+      <aside class="aerial-side">
+        <div class="rail-title">Director Shot</div>
+        <label class="field-stack">Shot name<input id="shotName" type="text" value="Aerial Shot 1"></label>
+        <label class="field-stack">Latitude<input id="lat" type="number" step="0.000001" value="37.774900"></label>
+        <label class="field-stack">Longitude<input id="lon" type="number" step="0.000001" value="-122.419400"></label>
+        <label class="field-stack">Altitude<input id="alt" type="number" step="0.1" value="40"></label>
+        <div class="tool-actions vertical-actions">
+          <button class="btn primary" id="addWaypoint">Add Waypoint</button>
+          <button class="btn" id="clearWaypoints">Clear Path</button>
+          <button class="btn" id="saveShot">Save Shot</button>
+          <button class="btn" id="loadShot">Load Saved Shot</button>
+        </div>
+        <div class="hint">This workspace simulates a cinematic flight path only. It does not arm, command, or transmit to real aircraft.</div>
+      </aside>
+
+      <section class="aerial-main">
+        <div class="workspace-panel-head">
+          <div>
+            <h1>Drone / Aerial Shot Simulator</h1>
+            <p>Plan repeatable cinematic routes and preview the motion before production.</p>
+          </div>
+          <div class="tool-actions">
+            <button class="btn primary" id="simStart">Start Simulation</button>
+            <button class="btn" id="simPause">Pause</button>
+            <button class="btn" id="simReset">Reset</button>
+          </div>
+        </div>
+
+        <div class="aerial-stage-card">
+          <svg id="flightMap" class="flight-map" viewBox="0 0 900 520" role="img" aria-label="Aerial shot path simulation"></svg>
+        </div>
+
+        <div class="telemetry-grid">
+          <div><span>Leg</span><strong id="simLeg">-</strong></div>
+          <div><span>Latitude</span><strong id="simLat">-</strong></div>
+          <div><span>Longitude</span><strong id="simLon">-</strong></div>
+          <div><span>Altitude</span><strong id="simAlt">-</strong></div>
+          <div><span>Progress</span><strong id="simPct">0%</strong></div>
+          <div><span>Speed</span><select id="simSpeed"><option value=".03">Slow</option><option value=".08" selected>Normal</option><option value=".2">Fast</option></select></div>
+        </div>
+
+        <section class="tool-card aerial-waypoints">
+          <h2>Waypoints</h2>
+          <div id="waypointList" class="part-list"><div class="tool-empty">No waypoints yet.</div></div>
+        </section>
+      </section>
+    </main>
+  </div>
+  <script src="aerial.js"></script>
+</body>
+</html>
