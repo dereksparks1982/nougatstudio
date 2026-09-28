@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#1f1f1f">
+  <title>Nougat Studio</title>
+  <meta name="description" content="Nougat Studio is a director-first browser production environment for screenwriting, story development, research, characters, shots, storyboards, and production planning.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand-mark">N</div>
+        <div>
+          <h1>Nougat Studio</h1>
+          <p>Director-first production environment</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <span id="saveState" class="save-state">Saved locally</span>
+        <label class="button secondary file-button">Import<input id="importInput" type="file" accept="application/json"></label>
+        <button id="exportBtn" class="button secondary" type="button">Export Project</button>
+      </div>
+    </header>
+
+    <div class="workspace-grid">
+      <aside class="panel project-rail">
+        <div class="panel-heading">Project</div>
+        <nav class="workspace-nav" aria-label="Project workspaces">
+          <button class="nav-item active" data-workspace="script" type="button">✎ Script</button>
+          <button class="nav-item" data-workspace="outline" type="button">▤ Outline</button>
+          <button class="nav-item" data-workspace="characters" type="button">◉ Characters</button>
+          <button class="nav-item" data-workspace="locations" type="button">⌖ Locations</button>
+          <button class="nav-item" data-workspace="research" type="button">⌕ Research</button>
+          <button class="nav-item" data-workspace="shots" type="button">▣ Shots</button>
+          <button class="nav-item" data-workspace="storyboard" type="button">▦ Storyboard</button>
+          <button class="nav-item" data-workspace="production" type="button">⚙ Production</button>
+        </nav>
+
+        <div class="panel-heading scene-heading row-between">
+          <span>Scenes</span>
+          <button id="newSceneBtn" class="mini-button" type="button" title="New scene">＋</button>
+        </div>
+        <div id="sceneList" class="scene-list"></div>
+      </aside>
+
+      <main class="main-stage">
+        <section id="scriptWorkspace" class="workspace active">
+          <div class="workspace-toolbar">
+            <div class="format-group" aria-label="Screenplay formatting">
+              <button class="format-button" data-format="scene" type="button">Scene</button>
+              <button class="format-button" data-format="action" type="button">Action</button>
+              <button class="format-button" data-format="character" type="button">Character</button>
+              <button class="format-button" data-format="dialogue" type="button">Dialogue</button>
+              <button class="format-button" data-format="parenthetical" type="button">(Parenthetical)</button>
+            </div>
+            <div class="script-meta">
+              <span id="sceneCounter">Scene 1 of 1</span>
+              <span id="wordCount">0 words</span>
+            </div>
+          </div>
+          <div class="script-scroll">
+            <article class="script-page" aria-label="Screenplay page">
+              <div id="scriptEditor" class="script-editor" contenteditable="true" spellcheck="true"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="outlineWorkspace" class="workspace placeholder-workspace">
+          <h2>Outline</h2>
+          <p>Shape the story before the pages. Scene order, beats, act structure, and pacing will live here.</p>
+          <div class="placeholder-cards"><div>Act I</div><div>Act II</div><div>Act III</div><div>Unplaced Beats</div></div>
+        </section>
+
+        <section id="charactersWorkspace" class="workspace">
+          <div class="character-layout">
+            <div class="character-list-panel">
+              <div class="panel-heading row-between"><span>Characters</span><button id="addCharacterBtn" class="mini-button" type="button">＋</button></div>
+              <div id="characterList" class="character-list"></div>
+            </div>
+            <div class="character-card-panel">
+              <div class="character-header">
+                <div id="characterInitial" class="character-avatar">C</div>
+                <div class="grow">
+                  <input id="characterName" class="title-input" value="Character Name" aria-label="Character name">
+                  <input id="characterRole" class="subtle-input" value="Role" aria-label="Character role">
+                </div>
+              </div>
+              <div class="character-grid">
+                <label>Age / Era<input id="characterAge"></label>
+                <label>Voice & Delivery<input id="characterVoice"></label>
+                <label class="wide">Traits<textarea id="characterTraits"></textarea></label>
+                <label class="wide">Backstory<textarea id="characterBackstory"></textarea></label>
+                <label class="wide">Reaction Bible<textarea id="characterReactions" placeholder="How does this character react under pressure, to authority, embarrassment, danger, victory, failure..."></textarea></label>
+                <label class="wide">Continuity<textarea id="characterContinuity"></textarea></label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="locationsWorkspace" class="workspace placeholder-workspace">
+          <h2>Locations</h2><p>Track story locations, practical notes, continuity, references, and production requirements.</p>
+          <div class="placeholder-cards"><div>Story Locations</div><div>Reference Images</div><div>Set Notes</div><div>Continuity</div></div>
+        </section>
+        <section id="researchWorkspace" class="workspace placeholder-workspace">
+          <h2>Research</h2><p>Keep source material, links, notes, quotations, and verification attached to the project instead of scattered across apps.</p>
+          <div class="placeholder-cards"><div>Sources</div><div>Notes</div><div>Reference</div><div>Archive</div></div>
+        </section>
+        <section id="shotsWorkspace" class="workspace placeholder-workspace">
+          <h2>Shots</h2><p>Director workspace for shot lists, lenses, movement, blocking, coverage, and scene intent.</p>
+          <div class="placeholder-cards"><div>Master</div><div>Coverage</div><div>Insert</div><div>Special Setup</div></div>
+        </section>
+        <section id="storyboardWorkspace" class="workspace placeholder-workspace">
+          <h2>Storyboard</h2><p>Build visual sequences scene by scene and keep boards connected to script beats and shots.</p>
+          <div class="placeholder-cards"><div>Sequence A</div><div>Sequence B</div><div>Unassigned Frames</div><div>Animatic Notes</div></div>
+        </section>
+        <section id="productionWorkspace" class="workspace placeholder-workspace">
+          <h2>Production</h2><p>Bring the script into practical filmmaking: cast, props, wardrobe, schedule, locations, and scene requirements.</p>
+          <div class="placeholder-cards"><div>Cast</div><div>Props</div><div>Wardrobe</div><div>Schedule</div><div>Departments</div><div>Scene Breakdown</div></div>
+        </section>
+      </main>
+
+      <aside class="panel inspector-rail">
+        <div class="panel-heading">Scene Inspector</div>
+        <div class="inspector-section">
+          <label>Scene title<input id="sceneTitleInput"></label>
+          <label>Location<input id="sceneLocationInput"></label>
+          <label>Characters<input id="sceneCharactersInput"></label>
+          <label>Director / continuity notes<textarea id="sceneNotesInput"></textarea></label>
+        </div>
+
+        <div class="panel-heading language-heading">Word & Phrase Tracker</div>
+        <div class="inspector-section">
+          <div class="tracked-word-form">
+            <input id="trackedWordInput" type="text" placeholder="Track a word or phrase">
+            <input id="trackedWordColor" type="color" value="#ffd54f" aria-label="Highlight color">
+            <button id="trackWordBtn" class="mini-button" type="button">Track</button>
+          </div>
+          <div id="trackedWords" class="tracked-words"></div>
+          <div class="analysis-summary">
+            <div><strong id="trackedTotal">0</strong><span>tracked hits</span></div>
+            <div><strong id="scriptWordTotal">0</strong><span>script words</span></div>
+          </div>
+          <div id="languageDetails" class="language-details">Select a tracked word to see its scene-by-scene count.</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
