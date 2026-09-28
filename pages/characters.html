@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071018">
+  <title>Characters | Nougat Studio</title>
+  <link rel="stylesheet" href="workspace.css">
+  <style>.character-shell{display:grid;grid-template-columns:260px minmax(0,1fr);min-height:calc(100vh - 78px)}.character-sidebar{background:#0b141c;border-right:1px solid #263642;padding:12px;overflow:auto}.character-sidebar button.entry{width:100%;padding:11px;margin-bottom:7px;text-align:left;background:#071018;border:1px solid #2d414f;border-radius:6px;color:#dae8f1;cursor:pointer}.character-sidebar button.entry.active{border-color:#4ea7d8;background:#10283a}.character-main{padding:24px;overflow:auto}.character-card{max-width:1050px;margin:auto;background:#0b151e;border:1px solid #2c4151;border-radius:10px;box-shadow:0 16px 48px #0007;overflow:hidden}.character-banner{display:flex;align-items:center;gap:18px;padding:20px;background:linear-gradient(110deg,#112635,#09121a)}.avatar{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:#1c86bd;color:#fff;font-weight:900;font-size:28px;border:2px solid #5fc0ed}.identity{flex:1}.identity input{display:block;width:100%;background:transparent;border:0;color:#f3f8fb;outline:0}.identity .name{font-size:26px;font-weight:800}.identity .role{font-size:14px;color:#93abba;margin-top:4px}.char-form{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:20px}.char-form label{display:flex;flex-direction:column;gap:6px;color:#91a6b5;font-size:12px}.char-form .wide{grid-column:1/-1}.char-form input,.char-form textarea{background:#061019;color:#eef5fb;border:1px solid #324958;border-radius:6px;padding:10px}.char-form textarea{min-height:105px;resize:vertical}.voice-lab{grid-column:1/-1;background:#07111a;border:1px solid #2e4657;border-radius:8px;padding:14px}.voice-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.recording{background:#7d1f28!important;border-color:#d45b65!important}.takes{display:grid;gap:7px;margin-top:12px}.take{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;background:#0b1720;border:1px solid #2a404f;border-radius:6px;padding:8px}.take audio{width:100%;height:32px}.small{font-size:11px;color:#7f96a6}@media(max-width:760px){.character-shell{grid-template-columns:1fr}.character-sidebar{max-height:210px}.char-form{grid-template-columns:1fr}.char-form .wide,.voice-lab{grid-column:1}}</style>
+</head>
+<body>
+<div class="workspace-shell">
+  <header class="workspace-header">
+    <a class="back-link" href="../index.html">← Home</a>
+    <div class="brand"><strong>Nougat</strong> <span>Studio</span></div>
+    <div class="workspace-title">Characters</div>
+    <div class="header-spacer"></div>
+    <span id="saveState" class="status">Saved locally</span>
+    <button id="exportCharactersBtn" class="btn">Export Characters</button>
+  </header>
+  <main class="character-shell">
+    <aside class="character-sidebar">
+      <div class="rail-title row"><span>Characters</span><button id="addCharacterBtn" class="mini">＋</button></div>
+      <div id="characterList"></div>
+    </aside>
+    <section class="character-main">
+      <article class="character-card">
+        <div class="character-banner">
+          <div id="characterInitial" class="avatar">C</div>
+          <div class="identity"><input id="name" class="name" value="Character Name"><input id="role" class="role" value="Role / function in story"></div>
+          <button id="deleteCharacterBtn" class="btn">Delete</button>
+        </div>
+        <div class="char-form">
+          <label>Age / Era<input id="age"></label>
+          <label>Voice &amp; Delivery<input id="voice" placeholder="Accent, cadence, pitch, speech habits..."></label>
+          <label>Occupation<input id="occupation"></label>
+          <label>Home / Origin<input id="origin"></label>
+          <label class="wide">Appearance<textarea id="appearance"></textarea></label>
+          <label class="wide">Personality, habits, strengths and flaws<textarea id="traits"></textarea></label>
+          <label class="wide">Full Backstory<textarea id="backstory" placeholder="As much or as little of this person's life as the project needs."></textarea></label>
+          <label class="wide">Reaction Bible<textarea id="reactions" placeholder="How does this character react to authority, danger, embarrassment, anger, affection, failure, victory, fear, pressure..."></textarea></label>
+          <label class="wide">Relationships<textarea id="relationships"></textarea></label>
+          <label class="wide">Continuity / Arc<textarea id="continuity"></textarea></label>
+          <section class="voice-lab">
+            <div class="row"><div><strong>Voice Test &amp; Rehearsal Lab</strong><div class="small">Record alternate deliveries for the character and play them back while developing a scene.</div></div></div>
+            <div class="voice-controls" style="margin-top:10px"><button id="recordBtn" class="btn primary">● Record Take</button><button id="stopBtn" class="btn" disabled>■ Stop</button><span id="voiceStatus" class="small">Microphone ready when permission is granted.</span></div>
+            <div id="takes" class="takes"></div>
+          </section>
+        </div>
+      </article>
+    </section>
+  </main>
+</div>
+<script src="characters.js"></script>
+</body>
+</html>
