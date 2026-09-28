@@ -3,152 +3,128 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#1f1f1f">
+  <meta name="theme-color" content="#071018">
   <title>Nougat Studio</title>
-  <meta name="description" content="Nougat Studio is a director-first browser production environment for screenwriting, story development, research, characters, shots, storyboards, and production planning.">
+  <meta name="description" content="Nougat Studio is a director-first professional film production environment for writing, planning, production, editing, sound, VFX, animation, mastering and delivery.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="app-shell">
-    <header class="topbar">
-      <div class="brand-block">
-        <div class="brand-mark">N</div>
-        <div>
-          <h1>Nougat Studio</h1>
-          <p>Director-first production environment</p>
-        </div>
-      </div>
-      <div class="top-actions">
-        <span id="saveState" class="save-state">Saved locally</span>
-        <label class="button secondary file-button">Import<input id="importInput" type="file" accept="application/json"></label>
-        <button id="exportBtn" class="button secondary" type="button">Export Project</button>
-      </div>
-    </header>
-
-    <div class="workspace-grid">
-      <aside class="panel project-rail">
-        <div class="panel-heading">Project</div>
-        <nav class="workspace-nav" aria-label="Project workspaces">
-          <button class="nav-item active" data-workspace="script" type="button">✎ Script</button>
-          <button class="nav-item" data-workspace="outline" type="button">▤ Outline</button>
-          <button class="nav-item" data-workspace="characters" type="button">◉ Characters</button>
-          <button class="nav-item" data-workspace="locations" type="button">⌖ Locations</button>
-          <button class="nav-item" data-workspace="research" type="button">⌕ Research</button>
-          <button class="nav-item" data-workspace="shots" type="button">▣ Shots</button>
-          <button class="nav-item" data-workspace="storyboard" type="button">▦ Storyboard</button>
-          <button class="nav-item" data-workspace="production" type="button">⚙ Production</button>
-        </nav>
-
-        <div class="panel-heading scene-heading row-between">
-          <span>Scenes</span>
-          <button id="newSceneBtn" class="mini-button" type="button" title="New scene">＋</button>
-        </div>
-        <div id="sceneList" class="scene-list"></div>
-      </aside>
-
-      <main class="main-stage">
-        <section id="scriptWorkspace" class="workspace active">
-          <div class="workspace-toolbar">
-            <div class="format-group" aria-label="Screenplay formatting">
-              <button class="format-button" data-format="scene" type="button">Scene</button>
-              <button class="format-button" data-format="action" type="button">Action</button>
-              <button class="format-button" data-format="character" type="button">Character</button>
-              <button class="format-button" data-format="dialogue" type="button">Dialogue</button>
-              <button class="format-button" data-format="parenthetical" type="button">(Parenthetical)</button>
-            </div>
-            <div class="script-meta">
-              <span id="sceneCounter">Scene 1 of 1</span>
-              <span id="wordCount">0 words</span>
-            </div>
-          </div>
-          <div class="script-scroll">
-            <article class="script-page" aria-label="Screenplay page">
-              <div id="scriptEditor" class="script-editor" contenteditable="true" spellcheck="true"></div>
-            </article>
-          </div>
-        </section>
-
-        <section id="outlineWorkspace" class="workspace placeholder-workspace">
-          <h2>Outline</h2>
-          <p>Shape the story before the pages. Scene order, beats, act structure, and pacing will live here.</p>
-          <div class="placeholder-cards"><div>Act I</div><div>Act II</div><div>Act III</div><div>Unplaced Beats</div></div>
-        </section>
-
-        <section id="charactersWorkspace" class="workspace">
-          <div class="character-layout">
-            <div class="character-list-panel">
-              <div class="panel-heading row-between"><span>Characters</span><button id="addCharacterBtn" class="mini-button" type="button">＋</button></div>
-              <div id="characterList" class="character-list"></div>
-            </div>
-            <div class="character-card-panel">
-              <div class="character-header">
-                <div id="characterInitial" class="character-avatar">C</div>
-                <div class="grow">
-                  <input id="characterName" class="title-input" value="Character Name" aria-label="Character name">
-                  <input id="characterRole" class="subtle-input" value="Role" aria-label="Character role">
-                </div>
-              </div>
-              <div class="character-grid">
-                <label>Age / Era<input id="characterAge"></label>
-                <label>Voice & Delivery<input id="characterVoice"></label>
-                <label class="wide">Traits<textarea id="characterTraits"></textarea></label>
-                <label class="wide">Backstory<textarea id="characterBackstory"></textarea></label>
-                <label class="wide">Reaction Bible<textarea id="characterReactions" placeholder="How does this character react under pressure, to authority, embarrassment, danger, victory, failure..."></textarea></label>
-                <label class="wide">Continuity<textarea id="characterContinuity"></textarea></label>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="locationsWorkspace" class="workspace placeholder-workspace">
-          <h2>Locations</h2><p>Track story locations, practical notes, continuity, references, and production requirements.</p>
-          <div class="placeholder-cards"><div>Story Locations</div><div>Reference Images</div><div>Set Notes</div><div>Continuity</div></div>
-        </section>
-        <section id="researchWorkspace" class="workspace placeholder-workspace">
-          <h2>Research</h2><p>Keep source material, links, notes, quotations, and verification attached to the project instead of scattered across apps.</p>
-          <div class="placeholder-cards"><div>Sources</div><div>Notes</div><div>Reference</div><div>Archive</div></div>
-        </section>
-        <section id="shotsWorkspace" class="workspace placeholder-workspace">
-          <h2>Shots</h2><p>Director workspace for shot lists, lenses, movement, blocking, coverage, and scene intent.</p>
-          <div class="placeholder-cards"><div>Master</div><div>Coverage</div><div>Insert</div><div>Special Setup</div></div>
-        </section>
-        <section id="storyboardWorkspace" class="workspace placeholder-workspace">
-          <h2>Storyboard</h2><p>Build visual sequences scene by scene and keep boards connected to script beats and shots.</p>
-          <div class="placeholder-cards"><div>Sequence A</div><div>Sequence B</div><div>Unassigned Frames</div><div>Animatic Notes</div></div>
-        </section>
-        <section id="productionWorkspace" class="workspace placeholder-workspace">
-          <h2>Production</h2><p>Bring the script into practical filmmaking: cast, props, wardrobe, schedule, locations, and scene requirements.</p>
-          <div class="placeholder-cards"><div>Cast</div><div>Props</div><div>Wardrobe</div><div>Schedule</div><div>Departments</div><div>Scene Breakdown</div></div>
-        </section>
-      </main>
-
-      <aside class="panel inspector-rail">
-        <div class="panel-heading">Scene Inspector</div>
-        <div class="inspector-section">
-          <label>Scene title<input id="sceneTitleInput"></label>
-          <label>Location<input id="sceneLocationInput"></label>
-          <label>Characters<input id="sceneCharactersInput"></label>
-          <label>Director / continuity notes<textarea id="sceneNotesInput"></textarea></label>
-        </div>
-
-        <div class="panel-heading language-heading">Word & Phrase Tracker</div>
-        <div class="inspector-section">
-          <div class="tracked-word-form">
-            <input id="trackedWordInput" type="text" placeholder="Track a word or phrase">
-            <input id="trackedWordColor" type="color" value="#ffd54f" aria-label="Highlight color">
-            <button id="trackWordBtn" class="mini-button" type="button">Track</button>
-          </div>
-          <div id="trackedWords" class="tracked-words"></div>
-          <div class="analysis-summary">
-            <div><strong id="trackedTotal">0</strong><span>tracked hits</span></div>
-            <div><strong id="scriptWordTotal">0</strong><span>script words</span></div>
-          </div>
-          <div id="languageDetails" class="language-details">Select a tracked word to see its scene-by-scene count.</div>
-        </div>
-      </aside>
+<div class="app-shell">
+  <header class="film-header">
+    <div class="film-perfs top"></div>
+    <div class="film-frames" aria-hidden="true">
+      <span class="film-frame frame-a"></span><span class="film-frame frame-b"></span><span class="film-frame frame-c"></span>
+      <span class="film-gap"></span>
+      <span class="film-frame frame-d"></span><span class="film-frame frame-e"></span><span class="film-frame frame-f"></span>
     </div>
-  </div>
+    <div class="studio-brand">
+      <div class="reel" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="brand-copy">
+        <div class="brand-title"><strong>NOUGAT</strong> <span>STUDIO</span></div>
+        <div class="brand-tagline">WRITE&nbsp;&nbsp;•&nbsp;&nbsp;PLAN&nbsp;&nbsp;•&nbsp;&nbsp;SHOOT&nbsp;&nbsp;•&nbsp;&nbsp;EDIT&nbsp;&nbsp;•&nbsp;&nbsp;MASTER&nbsp;&nbsp;•&nbsp;&nbsp;BRING YOUR VISION TO LIFE</div>
+      </div>
+    </div>
+    <div class="film-perfs bottom"></div>
+  </header>
 
-  <script src="app.js"></script>
+  <nav class="main-nav" aria-label="Nougat Studio workspaces">
+    <button class="top-nav active" data-workspace="home"><b>⌂</b><span>Home</span></button>
+    <button class="top-nav" data-workspace="projects"><b>▰</b><span>Projects</span></button>
+    <button class="top-nav" data-workspace="script"><b>▤</b><span>Screenplay</span></button>
+    <button class="top-nav" data-workspace="characters"><b>♟</b><span>Characters</span></button>
+    <button class="top-nav" data-workspace="locations"><b>⌖</b><span>Locations</span></button>
+    <button class="top-nav" data-workspace="storyboard"><b>▧</b><span>Storyboards</span></button>
+    <button class="top-nav" data-workspace="shots"><b>☷</b><span>Shot Lists</span></button>
+    <button class="top-nav" data-workspace="production"><b>▣</b><span>Production</span></button>
+    <button class="top-nav" data-workspace="media"><b>▶</b><span>Media</span></button>
+    <button class="top-nav" data-workspace="editing"><b>✂</b><span>Editing</span></button>
+    <button class="top-nav" data-workspace="sound"><b>◫</b><span>Sound</span></button>
+    <button class="top-nav" data-workspace="export"><b>⇧</b><span>Export</span></button>
+    <button class="top-nav" data-workspace="settings"><b>⚙</b><span>Settings</span></button>
+  </nav>
+
+  <main class="main-stage">
+    <section id="homeWorkspace" class="workspace active home-workspace">
+      <div class="hero">
+        <div class="director-chair"><span>DIRECTOR</span></div>
+        <div class="hero-copy">
+          <div class="welcome">W E L C O M E&nbsp;&nbsp; T O</div>
+          <h1><strong>NOUGAT</strong> <span>STUDIO</span></h1>
+          <h2>A COMPLETE FILM PRODUCTION ENVIRONMENT</h2>
+          <p>From idea to final cut, everything you need to make your movie.</p>
+        </div>
+        <div class="hero-camera" aria-hidden="true"><span></span></div>
+      </div>
+
+      <div class="module-grid">
+        <button class="module-card card-screenplay" data-workspace="script"><b>▤</b><strong>Screenplay</strong><span>Write and develop<br>your story</span></button>
+        <button class="module-card card-characters" data-workspace="characters"><b>♟</b><strong>Characters</strong><span>Build and manage<br>your cast</span></button>
+        <button class="module-card card-locations" data-workspace="locations"><b>⌖</b><strong>Locations</strong><span>Plan and organize<br>locations</span></button>
+        <button class="module-card card-storyboards" data-workspace="storyboard"><b>▧</b><strong>Storyboards</strong><span>Visualize your scenes</span></button>
+        <button class="module-card card-shots" data-workspace="shots"><b>☷</b><strong>Shot Lists</strong><span>Plan every shot</span></button>
+        <button class="module-card card-production" data-workspace="production"><b>▣</b><strong>Production</strong><span>Schedule and manage<br>production</span></button>
+        <button class="module-card card-media" data-workspace="media"><b>▶</b><strong>Media</strong><span>Ingest, organize<br>and manage footage</span></button>
+        <button class="module-card card-editing" data-workspace="editing"><b>✂</b><strong>Editing</strong><span>Edit with professional<br>tools</span></button>
+        <button class="module-card card-sound" data-workspace="sound"><b>◫</b><strong>Sound</strong><span>Record, edit and mix<br>audio</span></button>
+        <button class="module-card card-vfx" data-workspace="vfx"><b>◉</b><strong>VFX &amp; Color</strong><span>Enhance and polish<br>your film</span></button>
+        <button class="module-card card-export" data-workspace="export"><b>⇧</b><strong>Export</strong><span>Master and deliver<br>your movie</span></button>
+        <button class="module-card card-tools" data-workspace="tools"><b>🔧</b><strong>Tools</strong><span>Conversion, splitting,<br>ADR and more</span></button>
+      </div>
+
+      <div class="dashboard-lower">
+        <section class="dash-panel recent-panel">
+          <div class="dash-heading"><strong>Recent Projects</strong><button type="button">View All</button></div>
+          <div class="recent-list">
+            <div><i class="thumb mountain"></i><span><strong>The Last Horizon</strong><small>Action / Adventure</small></span><em>In Production</em></div>
+            <div><i class="thumb river"></i><span><strong>River Without End</strong><small>Drama</small></span><em class="editing-status">Editing</em></div>
+            <div><i class="thumb shadows"></i><span><strong>Shadows of Tomorrow</strong><small>Sci-Fi</small></span><em class="pre-status">Pre-Production</em></div>
+            <div><i class="thumb quiet"></i><span><strong>The Quiet Place</strong><small>Thriller</small></span><em class="writing-status">Writing</em></div>
+          </div>
+        </section>
+
+        <section class="dash-panel preview-panel">
+          <div class="dash-heading"><strong>Project Preview</strong></div>
+          <div class="preview-body">
+            <div class="preview-image"></div>
+            <div class="preview-copy"><h3>The Last Horizon</h3><p>Action / Adventure</p><dl><dt>Status:</dt><dd>In Production</dd><dt>Last Modified:</dt><dd>Sep 28, 2026</dd><dt>Scenes:</dt><dd>42</dd><dt>Duration (Est):</dt><dd>1h 58m</dd></dl><button class="primary" data-workspace="script">Open Project</button></div>
+          </div>
+        </section>
+
+        <section class="dash-panel quick-panel">
+          <div class="dash-heading"><strong>Quick Tools</strong></div>
+          <button data-workspace="projects">▰ <span>New Project</span> ›</button>
+          <button data-workspace="media">⇩ <span>Import Media</span> ›</button>
+          <button data-workspace="sound">♩ <span>Voice Test / ADR</span> ›</button>
+          <button data-workspace="tools">⟳ <span>Convert Media</span> ›</button>
+        </section>
+      </div>
+    </section>
+
+    <section id="scriptWorkspace" class="workspace studio-workspace">
+      <div class="studio-toolbar"><button class="back-home" data-workspace="home">← Home</button><strong>Screenplay</strong><span id="saveState">Saved locally</span><label class="button file-button">Import Project<input id="importInput" type="file" accept="application/json,.fountain,.txt,.html"></label><button id="exportProjectBtn" class="button">Export Project</button></div>
+      <div class="writer-grid">
+        <aside class="side-panel"><div class="panel-heading row-between"><span>Scenes</span><button id="newSceneBtn" class="mini-button">＋</button></div><div id="sceneList" class="scene-list"></div></aside>
+        <div class="script-area"><div class="format-bar"><button data-format="scene">Scene</button><button data-format="action">Action</button><button data-format="character">Character</button><button data-format="dialogue">Dialogue</button><button data-format="parenthetical">(Parenthetical)</button><span id="sceneCounter"></span><span id="wordCount"></span></div><div class="script-scroll"><article class="script-page"><div id="scriptEditor" class="script-editor" contenteditable="true" spellcheck="true"></div></article></div></div>
+        <aside class="side-panel inspector"><div class="panel-heading">Scene Inspector</div><label>Scene title<input id="sceneTitleInput"></label><label>Location<input id="sceneLocationInput"></label><label>Characters<input id="sceneCharactersInput"></label><label>Director / continuity notes<textarea id="sceneNotesInput"></textarea></label><div class="panel-heading">Word &amp; Phrase Tracker</div><div class="tracked-word-form"><input id="trackedWordInput" placeholder="Word or phrase"><input id="trackedWordColor" type="color" value="#ffd54f"><button id="trackWordBtn">Track</button></div><div id="trackedWords"></div><div class="analysis-summary"><div><strong id="trackedTotal">0</strong><span>tracked hits</span></div><div><strong id="scriptWordTotal">0</strong><span>script words</span></div></div><div id="languageDetails" class="language-details">Select a tracked word to see scene counts.</div></aside>
+      </div>
+    </section>
+
+    <section id="charactersWorkspace" class="workspace studio-workspace"><div class="studio-toolbar"><button data-workspace="home">← Home</button><strong>Characters</strong></div><div class="character-layout"><section class="side-panel"><div class="panel-heading row-between"><span>Characters</span><button id="addCharacterBtn" class="mini-button">＋</button></div><div id="characterList" class="character-list"></div></section><section class="character-card-panel"><div class="character-header"><div id="characterInitial" class="character-avatar">C</div><div class="grow"><input id="characterName" class="title-input" value="Character Name"><input id="characterRole" class="subtle-input" value="Role"></div></div><div class="character-grid"><label>Age / Era<input id="characterAge"></label><label>Voice &amp; Delivery<input id="characterVoice"></label><label class="wide">Traits<textarea id="characterTraits"></textarea></label><label class="wide">Backstory<textarea id="characterBackstory"></textarea></label><label class="wide">Reaction Bible<textarea id="characterReactions"></textarea></label><label class="wide">Continuity<textarea id="characterContinuity"></textarea></label><label class="wide">Voice Tests / Rehearsal<div class="voice-box"><button id="recordVoiceBtn" type="button">● Record Voice Test</button><span id="voiceStatus">Browser microphone capture prototype</span><audio id="voicePlayback" controls></audio></div></label></div></section></div></section>
+
+    <section id="projectsWorkspace" class="workspace studio-workspace simple-workspace"><div class="studio-toolbar"><button data-workspace="home">← Home</button><strong>Projects</strong></div><h2>Project Library</h2><p>Create, open, import, archive and manage complete film projects.</p></section>
+    <section id="locationsWorkspace" class="workspace studio-workspace simple-workspace"><div class="studio-toolbar"><button data-workspace="home">← Home</button><strong>Locations</strong></div><h2>Locations</h2><div class="feature-grid"><article>Story Locations</article><article>Scouting Notes</article><article>Reference Media</article><article>Permits &amp; Logistics</article><article>Continuity</article><article>Weather / Light Notes</article></div></section>
+    <section id="storyboardWorkspace" class="workspace studio-workspace simple-workspace"><div class="studio-toolbar"><button data-workspace="home">← Home</button><strong>Storyboards</strong></div><h2>Storyboards &amp; Previsualization</h2><div class="feature-grid"><article>Frame Boards</article><article>Animatics</article><article>2D Previs</article><article>3D Previs</article><article>Camera Moves</article><article>Scene Timing</article></div></section>
+    <section id="shotsWorkspace" class="workspace studio-workspace simple-workspace"><div class="studio-toolbar"><button data-workspace="home">← Home</button><strong>Shot Lists</strong></div><h2>Camera &amp; Shot Planning</h2><div class="feature-grid"><article>Shot Lists</article><article>Camera Bodies</article><article>Lenses</article><article>Movement / Blocking</article><article>Coverage</article><article>Drone &amp; Aerial Plans</article></div></section>
+    <section id="productionWorkspace" class="workspace studio-workspace simple-workspace"><div class="studio-toolbar"><button data-workspace="home">← Home</button><strong>Production</strong></div><h2>Production Management</h2><div class="feature-grid"><article>Schedule</article><article>Scene Breakdowns</article><article>Cast</article><article>Crew</article><article>Props</article><article>Wardrobe</article><article>Call Sheets</article><article>Continuity</article></div></section>
+    <section id="mediaWorkspace" class="workspace studio-workspace simple-workspace"><div class="studio-toolbar"><button data-workspace="home">← Home</button><strong>Media</strong></div><h2>Media Ingest &amp; Asset Management</h2><div class="feature-grid"><article>Camera Ingest</article><article>Dailies</article><article>Proxy Media</article><article>Relink Media</article><article>Metadata</article><article>Asset Browser</article></div></section>
+    <section id="editingWorkspace" class="workspace studio-workspace simple-workspace"><div class="studio-toolbar"><button data-workspace="home">← Home</button><strong>Editing</strong></div><h2>Editorial</h2><div class="feature-grid"><article>Non-Linear Timeline</article><article>Multi-Track Video</article><article>Transitions</article><article>Markers</article><article>Titles &amp; Credits</article><article>Captions / Subtitles</article></div></section>
+    <section id="soundWorkspace" class="workspace studio-workspace simple-workspace"><div class="studio-toolbar"><button data-workspace="home">← Home</button><strong>Sound</strong></div><h2>Sound &amp; Dialogue</h2><div class="feature-grid"><article>Voice Tests</article><article>ADR</article><article>Dialogue Cleanup</article><article>Sound Design</article><article>Multi-Track Mix</article><article>Music / Score</article></div></section>
+    <section id="vfxWorkspace" class="workspace studio-workspace simple-workspace"><div class="studio-toolbar"><button data-workspace="home">← Home</button><strong>VFX &amp; Color</strong></div><h2>VFX, Animation &amp; Finishing</h2><div class="feature-grid"><article>Green-Screen Keying</article><article>Tracking / Rotoscoping</article><article>Compositing</article><article>2D Animation</article><article>3D Animation</article><article>Character Rigging</article><article>Color Correction</article><article>Color Grading</article></div><p class="quality-note">Target: photoreal integration that preserves natural lens, lighting, texture, grain, shadows and edge detail rather than an artificial glossy CG look.</p></section>
+    <section id="toolsWorkspace" class="workspace studio-workspace simple-workspace"><div class="studio-toolbar"><button data-workspace="home">← Home</button><strong>Tools</strong></div><h2>Media Utility Suite</h2><div class="feature-grid"><article>Media Converter</article><article>Media Splitter</article><article>Join / Reassemble</article><article>Proxy Generator</article><article>Audio Extractor</article><article>Frame Extractor</article><article>ADR Utility</article><article>Metadata Inspector</article></div></section>
+    <section id="exportWorkspace" class="workspace studio-workspace simple-workspace"><div class="studio-toolbar"><button data-workspace="home">← Home</button><strong>Export</strong></div><h2>Export Without Lock-In</h2><p>Nougat Studio is being designed around standard, portable formats. Projects should never be trapped in a proprietary format.</p><div class="export-groups"><article><h3>Screenplay / Documents</h3><p>FDX • Fountain • PDF • TXT • HTML • JSON • CSV</p></article><article><h3>Video / Containers</h3><p>MP4 • MKV • MOV • WebM • AVI and additional FFmpeg-supported targets</p></article><article><h3>Audio</h3><p>WAV • FLAC • MP3 • AAC • OGG and additional supported codecs</p></article><article><h3>Images / Frames</h3><p>PNG • JPEG • WebP • TIFF</p></article><article><h3>Editorial Interchange</h3><p>EDL • OTIO • XML, with AAF interchange planned</p></article><article><h3>Project Archive</h3><p>Human-readable project data plus linked or collected media, with no single-vendor lock-in.</p></article></div><button id="quickJsonExport" class="primary">Export Current Project JSON</button><button id="quickTextExport">Export Screenplay TXT</button><button id="quickHtmlExport">Export Screenplay HTML</button><button id="quickFountainExport">Export Fountain</button></section>
+    <section id="settingsWorkspace" class="workspace studio-workspace simple-workspace"><div class="studio-toolbar"><button data-workspace="home">← Home</button><strong>Settings</strong></div><h2>Studio Settings</h2><div class="feature-grid"><article>Project Defaults</article><article>Storage</article><article>Camera Presets</article><article>Audio Presets</article><article>Export Presets</article><article>Workspace Layouts</article></div></section>
+  </main>
+</div>
+<script src="app.js"></script>
 </body>
 </html>
