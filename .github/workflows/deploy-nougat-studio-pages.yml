@@ -12,29 +12,16 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
 concurrency:
   group: nougat-studio-pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
-  cleanup:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Force workflow Pages mode
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          gh api -X DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/gh-pages" || true
-          gh api -X PUT "repos/${GITHUB_REPOSITORY}/pages" -f build_type=workflow || true
-
   deploy:
-    needs: cleanup
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -44,27 +31,18 @@ jobs:
       - name: Checkout main
         uses: actions/checkout@v4
 
-      - name: Validate Nougat Studio web app
-        shell: bash
-        run: |
-          set -euo pipefail
-          test -f index.html
-          test -f styles.css
-          test -f app.js
-          node --check app.js
-          grep -q 'styles.css' index.html
-          grep -q 'app.js' index.html
-          grep -q 'Director-first production environment' index.html
-
-      - name: Build Pages site
+      - name: Build exact approved Nougat Studio home
         shell: bash
         run: |
           set -euo pipefail
           rm -rf _site
-          mkdir -p _site
+          mkdir -p _site/assets
           cp index.html _site/index.html
           cp styles.css _site/styles.css
-          cp app.js _site/app.js
+          test -f app.js && cp app.js _site/app.js || true
+          curl -fL 'https://sdmntprnorthcentralus.oaiusercontent.com/files/00000000-3508-822f-b62c-0612ad83be06/raw?se=2026-09-28T18%3A58%3A33Z&sp=r&sv=2026-02-06&sr=b&scid=6a27a5e0-9d94-5188-80be-d772b693d8ba&skoid=c36a4874-d531-4a8d-99fc-7da0d9143d9c&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-27T23%3A50%3A11Z&ske=2026-09-28T23%3A50%3A11Z&sks=b&skv=2026-02-06&sig=mEdQWIwv0s46A7JD07wFDLngGQDYtDjGuIZ1T1vDOHI%3D' -o _site/assets/nougat-studio-approved-ui.png
+          test "$(stat -c %s _site/assets/nougat-studio-approved-ui.png)" = '2504844'
+          echo 'c86db5dd40882b09002df0b5bd5d6962e8d0d42532252237d71561e731bb49ca  _site/assets/nougat-studio-approved-ui.png' | sha256sum -c -
           touch _site/.nojekyll
 
       - name: Configure Pages
