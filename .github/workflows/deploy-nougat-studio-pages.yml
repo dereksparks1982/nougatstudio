@@ -3,13 +3,6 @@ name: Nougat Studio Pages
 on:
   push:
     branches: [main]
-    paths:
-      - "index.html"
-      - "styles.css"
-      - "app.js"
-      - "pages/**"
-      - ".nojekyll"
-      - ".github/workflows/deploy-nougat-studio-pages.yml"
   workflow_dispatch:
 
 permissions:
