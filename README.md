@@ -51,8 +51,14 @@ Nougat Studio aims to become a practical filmmaking environment that can scale f
 
 The long-term goal is not to imitate one existing application. It is to build a unified production environment around the way a film actually moves from concept to completed picture.
 
-## License
+## Commercial productions are allowed
 
-Copyright © 2026. All rights reserved except where explicitly granted by the project's license.
+Nougat Studio may be used to create commercial work. A director, filmmaker, studio, production company, freelancer, or other user may use Nougat Studio to develop, produce, edit, finish, distribute, license, exhibit, or sell a movie or other project created with the software.
 
-The source may be made publicly available for development, review, and permitted use, while commercial resale or other commercial use is restricted according to the project's license terms.
+**Nougat Studio does not claim ownership of films, scripts, audio, video, artwork, project files, or other creative output made with the software.**
+
+The restriction applies to the software itself: Nougat Studio, modified versions, forks, repackaged copies, or substantially equivalent distributions may not be sold, relicensed for a fee, or presented as another party's proprietary commercial product.
+
+In short: **make money with the movie, not by reselling Nougat Studio.**
+
+See [`LICENSE`](LICENSE) for the repository's license terms.
