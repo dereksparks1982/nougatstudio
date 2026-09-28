@@ -14,6 +14,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 
@@ -22,7 +23,19 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  setup-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Force workflow Pages mode
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh api -X PUT "repos/${GITHUB_REPOSITORY}/pages" -f build_type=workflow || true
+
   deploy:
+    needs: setup-pages
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -32,20 +45,28 @@ jobs:
       - name: Checkout main
         uses: actions/checkout@v4
 
+      - name: Recover verified approved UI asset
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: _seed
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 36468683098
+
       - name: Build Nougat Studio Pages site
         shell: bash
         run: |
           set -euo pipefail
-          rm -rf _site
-          mkdir -p _site/assets
+          rm -rf _site _seed_site
+          mkdir -p _site/assets _seed_site
           cp index.html _site/index.html
           cp styles.css _site/styles.css
           test -f app.js && cp app.js _site/app.js || true
           if [ -d pages ]; then cp -R pages _site/pages; fi
 
-          # Preserve the approved home UI exactly from the currently deployed site.
-          # This avoids any resampling, conversion, or reconstruction of the asset.
-          curl -fL 'https://dereksparks1982.github.io/nougatstudio/assets/nougat-studio-approved-ui.png' -o _site/assets/nougat-studio-approved-ui.png
+          tar -xf _seed/artifact.tar -C _seed_site
+          cp _seed_site/assets/nougat-studio-approved-ui.png _site/assets/nougat-studio-approved-ui.png
           test "$(stat -c %s _site/assets/nougat-studio-approved-ui.png)" = '2504844'
           echo 'c86db5dd40882b09002df0b5bd5d6962e8d0d42532252237d71561e731bb49ca  _site/assets/nougat-studio-approved-ui.png' | sha256sum -c -
           touch _site/.nojekyll
